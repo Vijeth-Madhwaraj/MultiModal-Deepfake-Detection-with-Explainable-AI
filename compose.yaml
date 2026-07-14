@@ -1,0 +1,24 @@
+services:
+  gradcam3d:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        TORCH_INDEX_URL: https://download.pytorch.org/whl/cpu
+    image: gradcam3d:cpu
+    working_dir: /app
+    environment:
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./data:/app/data
+      - ./small_data:/app/small_data:ro
+      - ./checkpoints:/app/checkpoints
+      - ./outputs:/app/outputs
+      - ./weak_labels:/app/weak_labels
+      - ./random_forest/metadata:/app/random_forest/metadata
+      - ./random_forest/features:/app/random_forest/features
+      - ./random_forest/models:/app/random_forest/models
+      - ./random_forest/results:/app/random_forest/results
+      - ./transcript/benchmarks:/app/transcript/benchmarks:ro
+    command: ["python", "analysis/analyze_video.py", "--help"]
+

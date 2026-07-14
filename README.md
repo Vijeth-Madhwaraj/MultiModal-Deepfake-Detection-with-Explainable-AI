@@ -92,6 +92,36 @@ Pop-Location
 - An NVIDIA GPU is optional; CPU mode is supported but training and SHAP will be slow
 - Celeb-DF/Celeb-DF-v2, or another dataset arranged as shown below
 
+## Docker on Windows
+
+The project includes a portable CPU image and an optional NVIDIA GPU variant.
+Docker Desktop must use Linux containers with the WSL 2 backend.
+
+Build and verify the CPU image:
+
+```powershell
+docker compose build --progress=plain
+docker compose run --rm gradcam3d python -c "import torch, cv2, librosa, mediapipe, shap; print('Imports OK'); print('CUDA:', torch.cuda.is_available())"
+```
+
+Run CPU inference:
+
+```powershell
+docker compose run --rm gradcam3d python cnn/inference.py /app/small_data/Fake_Video_Fake_Audio.mp4 --checkpoint-path /app/checkpoints/best_model.pth --device cpu
+```
+
+Build and verify the optional NVIDIA image:
+
+```powershell
+docker compose -f compose.yaml -f compose.gpu.yaml build --progress=plain
+docker compose -f compose.yaml -f compose.gpu.yaml run --rm gradcam3d python -c "import torch; print('CUDA:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'none')"
+```
+
+Container paths use Linux forward slashes (`/`), even when commands are issued
+from Windows PowerShell. See [`DOCKER.md`](DOCKER.md) for the complete Windows
+command reference covering inference, training, Grad-CAM, SHAP, transcripts,
+Random Forest processing, fusion, mounted folders, and cleanup.
+
 Run every command from the project root (`GradCAM3D`). Do not reuse a copied `.venv` from another computer or Python installation; virtual environments contain machine-specific paths.
 
 ## 1. Create the environment and install dependencies

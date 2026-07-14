@@ -1,0 +1,8 @@
+services:
+  gradcam3d:
+    build:
+      args:
+        TORCH_INDEX_URL: https://download.pytorch.org/whl/cu121
+    image: gradcam3d:gpu
+    gpus: all
+
