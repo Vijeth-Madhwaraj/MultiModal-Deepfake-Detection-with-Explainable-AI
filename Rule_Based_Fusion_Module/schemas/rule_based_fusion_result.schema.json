@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/rule_based_fusion_result.schema.json",
+  "title": "Four-Way Rule-Based Fusion Result",
+  "description": "Schema for results.rule_based_fusion with separate video and audio authenticity decisions.",
+  "type": "object",
+  "required": [
+    "label",
+    "label_id",
+    "display_label",
+    "confidence",
+    "video",
+    "audio",
+    "cross_modal_consistency",
+    "evidence",
+    "rule_trace",
+    "method"
+  ],
+  "properties": {
+    "label": {
+      "enum": [
+        "REAL_VIDEO_REAL_AUDIO",
+        "REAL_VIDEO_FAKE_AUDIO",
+        "FAKE_VIDEO_REAL_AUDIO",
+        "FAKE_VIDEO_FAKE_AUDIO"
+      ]
+    },
+    "label_id": {"type": "integer", "minimum": 0, "maximum": 3},
+    "display_label": {
+      "enum": [
+        "Real video / Real audio",
+        "Real video / Fake audio",
+        "Fake video / Real audio",
+        "Fake video / Fake audio"
+      ]
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "video": {"$ref": "#/$defs/modalityDecision"},
+    "audio": {"$ref": "#/$defs/modalityDecision"},
+    "cross_modal_consistency": {
+      "type": "object",
+      "required": [
+        "label",
+        "consistent",
+        "confidence",
+        "transcript_anomaly_score",
+        "transcript_match_score"
+      ],
+      "properties": {
+        "label": {"enum": ["CONSISTENT", "INCONSISTENT"]},
+        "consistent": {"type": "boolean"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "transcript_anomaly_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "transcript_match_score": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "cnn_3d_fake_score",
+        "random_forest_fake_score",
+        "weak_label_fake_score",
+        "transcript_anomaly_score"
+      ],
+      "properties": {
+        "cnn_3d_fake_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "random_forest_fake_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "weak_label_fake_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "transcript_anomaly_score": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "rule_trace": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule", "matched", "details"],
+        "properties": {
+          "rule": {"type": "string"},
+          "matched": {"type": "boolean"},
+          "details": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "method": {"const": "deterministic_modality_fusion_v2"}
+  },
+  "$defs": {
+    "modalityDecision": {
+      "type": "object",
+      "required": [
+        "label",
+        "label_id",
+        "confidence",
+        "fake_score",
+        "real_score",
+        "decision_basis"
+      ],
+      "properties": {
+        "label": {"enum": ["REAL", "FAKE"]},
+        "label_id": {"enum": [0, 1]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "fake_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "real_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "decision_basis": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

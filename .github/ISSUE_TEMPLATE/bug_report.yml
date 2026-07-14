@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a reproducible problem in GradCAM3D
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - 3D CNN
+        - Random Forest
+        - Transcript analysis
+        - Rule-based fusion
+        - Dataset tools
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include the command and relevant configuration, without private data.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, PyTorch version, and CPU/GPU.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output
+      render: shell

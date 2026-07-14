@@ -1,0 +1,78 @@
+# Python caches and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# IDE and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local datasets and samples
+data/
+small_data/
+samples/
+fakeavceleb_split/
+dataset/
+
+# Generated training and explanation artifacts
+checkpoints/
+outputs/
+FINAL_OUTPUT/
+logs/
+weak_labels/
+results/
+runs/
+wandb/
+work/
+best_model/
+best_model_2/
+best_model_2.pth
+*.log
+
+# Trained model files and large binary artifacts
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.pkl
+*.joblib
+*.caffemodel
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Generated numerical and media outputs
+*.npy
+*.npz
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Project-specific downloaded models
+benchmarks/LRS3/models/LRS3_A_WER1.0/
+benchmarks/LRS3/models/LRS3_V_WER19.1/
+Random_Forest_model/
+transcript/benchmarks/LRS3/models/
+
+# Local scratch files
+trial.py

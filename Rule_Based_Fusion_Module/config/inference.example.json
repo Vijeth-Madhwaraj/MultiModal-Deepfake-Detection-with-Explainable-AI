@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\path\\to\\python.exe",
+    "C:\\path\\to\\your_upstream_pipeline.py",
+    "--input",
+    "{input_video}",
+    "--output",
+    "{output_json}"
+  ],
+  "timeout_seconds": 1800
+}

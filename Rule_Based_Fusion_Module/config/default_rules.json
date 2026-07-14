@@ -1,0 +1,21 @@
+{
+  "thresholds": {
+    "video_fake_score": 0.5,
+    "audio_fake_score": 0.5,
+    "transcript_consistency_max_anomaly": 0.35
+  },
+  "source_weights": {
+    "cnn_3d": 0.6666666666666666,
+    "weak_label_heuristics": 0.3333333333333334
+  },
+  "weak_label_weights": {
+    "boundary_inconsistency": 0.5,
+    "eye_blink_irregularity": 0.5
+  },
+  "transcript_weights": {
+    "wer": 0.4,
+    "word_mismatch": 0.25,
+    "character_dissimilarity": 0.15,
+    "semantic_dissimilarity": 0.2
+  }
+}

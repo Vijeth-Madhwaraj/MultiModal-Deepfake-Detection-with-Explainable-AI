@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-01-01T00:00:00+00:00",
+  "input_video": "C:\\path\\to\\video.mp4",
+  "label_encoding": {
+    "REAL": 0,
+    "FAKE": 1
+  },
+  "results": {
+    "cnn_3d": {
+      "label": "REAL",
+      "label_id": 0,
+      "confidence": 0.5,
+      "device": "cpu",
+      "checkpoint": "C:\\path\\to\\cnn_checkpoint.pth"
+    },
+    "weak_label_heuristics": {
+      "boundary_inconsistency": 0.5,
+      "eye_blink_irregularity": 0.5,
+      "score_range": [0.0, 1.0],
+      "eye_backend": "mediapipe_face_mesh",
+      "frames_limit": 96
+    },
+    "random_forest": {
+      "label": "REAL",
+      "label_id": 0,
+      "confidence": 0.5,
+      "fake_probability": 0.5,
+      "real_probability": 0.5
+    },
+    "transcript_comparison": {
+      "audio_transcript": "",
+      "video_transcript": "",
+      "wer": 0.5,
+      "word_match_rate": 50.0,
+      "character_similarity": 50.0,
+      "semantic_similarity": 50.0,
+      "percentage_metric_range": [0.0, 100.0]
+    }
+  },
+  "errors": {},
+  "status": "complete"
+}

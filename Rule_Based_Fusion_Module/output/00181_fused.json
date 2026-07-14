@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-07-13T05:28:30.786936+00:00",
+  "input_video": "C:\\Users\\Madhw\\Downloads\\GradCAM3D - Copy\\small_data\\real\\00181.mp4",
+  "label_encoding": {
+    "REAL": 0,
+    "FAKE": 1
+  },
+  "results": {
+    "cnn_3d": {
+      "label": "FAKE",
+      "label_id": 1,
+      "confidence": 0.796498,
+      "device": "cuda",
+      "checkpoint": "C:\\Users\\Madhw\\Downloads\\GradCAM3D - Copy\\best_model_2.pth"
+    },
+    "weak_label_heuristics": {
+      "boundary_inconsistency": 0.257396,
+      "eye_blink_irregularity": 0.543329,
+      "score_range": [
+        0.0,
+        1.0
+      ],
+      "eye_backend": "mediapipe_face_mesh",
+      "frames_limit": 96
+    },
+    "random_forest": {
+      "label": "REAL",
+      "label_id": 0,
+      "confidence": 0.88,
+      "fake_probability": 0.12,
+      "real_probability": 0.88
+    },
+    "transcript_comparison": {
+      "audio_transcript": "THAT'S WHAT YOU DO WHEN YOU GET RID OF LOOPHOLES AND DEDUCTIONS IN THE CODE IS YOU DROP THE RATE FOR EVERY",
+      "video_transcript": "THAT'S WHAT YOU DO WHEN YOU GET RID OF LOOPHOLES AND DEDUCTIONS IN THE CODE YOU DROP THE RATE FOREVER",
+      "wer": 0.1364,
+      "word_match_rate": 86.36,
+      "character_similarity": 97.58,
+      "semantic_similarity": 96.96,
+      "percentage_metric_range": [
+        0.0,
+        100.0
+      ]
+    },
+    "rule_based_fusion": {
+      "label": "FAKE_VIDEO_REAL_AUDIO",
+      "label_id": 2,
+      "display_label": "Fake video / Real audio",
+      "confidence": 0.664453,
+      "video": {
+        "label": "FAKE",
+        "label_id": 1,
+        "confidence": 0.664453,
+        "fake_score": 0.664453,
+        "real_score": 0.335547,
+        "decision_basis": "weighted_cnn_and_visual_heuristics"
+      },
+      "audio": {
+        "label": "REAL",
+        "label_id": 0,
+        "confidence": 0.88,
+        "fake_score": 0.12,
+        "real_score": 0.88,
+        "decision_basis": "random_forest_audio_classifier"
+      },
+      "cross_modal_consistency": {
+        "label": "CONSISTENT",
+        "consistent": true,
+        "confidence": 0.90163,
+        "transcript_anomaly_score": 0.09837,
+        "transcript_match_score": 0.90163
+      },
+      "evidence": {
+        "cnn_3d_fake_score": 0.796498,
+        "random_forest_fake_score": 0.12,
+        "weak_label_fake_score": 0.400362,
+        "transcript_anomaly_score": 0.09837
+      },
+      "rule_trace": [
+        {
+          "rule": "visual_authenticity",
+          "matched": true,
+          "details": "visual fake score 0.664453 compared with threshold 0.5"
+        },
+        {
+          "rule": "audio_authenticity",
+          "matched": false,
+          "details": "audio fake score 0.12 compared with threshold 0.5"
+        },
+        {
+          "rule": "transcript_consistency",
+          "matched": true,
+          "details": "transcript anomaly score 0.09837 compared with maximum 0.35"
+        },
+        {
+          "rule": "four_way_modality_combination",
+          "matched": true,
+          "details": "FAKE video combined with REAL audio"
+        }
+      ],
+      "method": "deterministic_modality_fusion_v2"
+    }
+  },
+  "errors": {},
+  "status": "complete"
+}

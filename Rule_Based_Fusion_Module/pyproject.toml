@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rule-based-fusion"
+version = "1.0.0"
+description = "Explainable rule-based fusion for deepfake detection results"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+rule-based-fusion = "rule_based_fusion.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+rule_based_fusion = ["default_rules.json"]

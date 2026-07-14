@@ -1,0 +1,26 @@
+# config.yaml
+
+defaults:  
+  - _self_  
+  - override hydra/hydra_logging: disabled  
+  - override hydra/job_logging: disabled  
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .
+config_filename: null
+compare_transcripts: false
+audio_config_filename: configs/LRS3_A_WER1.0.ini
+video_config_filename: configs/LRS3_V_WER19.1.ini
+semantic_similarity: true
+data_dir: null
+data_filename: null
+data_ext: ".mp4"
+landmarks_dir: null
+landmarks_filename: null
+landmarks_ext: ".pkl"
+labels_filename: null
+detector: retinaface
+dst_filename: null
+gpu_idx: 0
+output_subdir: null

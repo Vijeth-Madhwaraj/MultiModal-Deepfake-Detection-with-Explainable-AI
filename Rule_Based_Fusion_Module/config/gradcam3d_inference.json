@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python",
+    "analysis\\analyze_video.py",
+    "{input_video}",
+    "--output",
+    "{output_json}",
+    "--checkpoint",
+    "best_model_2.pth",
+    "--device",
+    "cuda",
+    "--transcript-gpu-index",
+    "-1",
+    "--strict"
+  ],
+  "timeout_seconds": 7200
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/detector_report.schema.json",
+  "title": "Rule-Based Fusion Detector Report",
+  "description": "Input contract for the standalone rule-based fusion module.",
+  "type": "object",
+  "required": ["schema_version", "label_encoding", "results", "status"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "generated_at_utc": {"type": "string", "format": "date-time"},
+    "input_video": {"type": "string"},
+    "label_encoding": {
+      "type": "object",
+      "required": ["REAL", "FAKE"],
+      "properties": {
+        "REAL": {"const": 0},
+        "FAKE": {"const": 1}
+      },
+      "additionalProperties": false
+    },
+    "results": {
+      "type": "object",
+      "required": [
+        "cnn_3d",
+        "weak_label_heuristics",
+        "random_forest",
+        "transcript_comparison"
+      ],
+      "properties": {
+        "cnn_3d": {
+          "type": "object",
+          "required": ["label", "label_id", "confidence"],
+          "properties": {
+            "label": {"enum": ["REAL", "FAKE"]},
+            "label_id": {"enum": [0, 1]},
+            "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+            "device": {"type": "string"},
+            "checkpoint": {"type": "string"}
+          },
+          "additionalProperties": true
+        },
+        "weak_label_heuristics": {
+          "type": "object",
+          "required": ["boundary_inconsistency", "eye_blink_irregularity"],
+          "properties": {
+            "boundary_inconsistency": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "eye_blink_irregularity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "score_range": {
+              "type": "array",
+              "prefixItems": [{"const": 0}, {"const": 1}],
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "eye_backend": {"type": "string"},
+            "frames_limit": {"type": "integer", "minimum": 1}
+          },
+          "additionalProperties": true
+        },
+        "random_forest": {
+          "type": "object",
+          "required": [
+            "label",
+            "label_id",
+            "confidence",
+            "fake_probability",
+            "real_probability"
+          ],
+          "properties": {
+            "label": {"enum": ["REAL", "FAKE"]},
+            "label_id": {"enum": [0, 1]},
+            "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+            "fake_probability": {"type": "number", "minimum": 0, "maximum": 1},
+            "real_probability": {"type": "number", "minimum": 0, "maximum": 1}
+          },
+          "additionalProperties": true
+        },
+        "transcript_comparison": {
+          "type": "object",
+          "required": [
+            "wer",
+            "word_match_rate",
+            "character_similarity",
+            "semantic_similarity"
+          ],
+          "properties": {
+            "audio_transcript": {"type": "string"},
+            "video_transcript": {"type": "string"},
+            "wer": {"type": "number", "minimum": 0, "maximum": 1},
+            "word_match_rate": {"type": "number", "minimum": 0, "maximum": 100},
+            "character_similarity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "semantic_similarity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "percentage_metric_range": {
+              "type": "array",
+              "prefixItems": [{"const": 0}, {"const": 100}],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "errors": {"type": "object"},
+    "status": {"const": "complete"}
+  },
+  "additionalProperties": true
+}

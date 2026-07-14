@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-07-13T05:28:30.786936+00:00",
+  "input_video": "C:\\Users\\Madhw\\Downloads\\GradCAM3D - Copy\\small_data\\real\\00181.mp4",
+  "label_encoding": {
+    "REAL": 0,
+    "FAKE": 1
+  },
+  "results": {
+    "cnn_3d": {
+      "label": "FAKE",
+      "label_id": 1,
+      "confidence": 0.796498,
+      "device": "cuda",
+      "checkpoint": "C:\\Users\\Madhw\\Downloads\\GradCAM3D - Copy\\best_model_2.pth"
+    },
+    "weak_label_heuristics": {
+      "boundary_inconsistency": 0.257396,
+      "eye_blink_irregularity": 0.543329,
+      "score_range": [0.0, 1.0],
+      "eye_backend": "mediapipe_face_mesh",
+      "frames_limit": 96
+    },
+    "random_forest": {
+      "label": "REAL",
+      "label_id": 0,
+      "confidence": 0.88,
+      "fake_probability": 0.12,
+      "real_probability": 0.88
+    },
+    "transcript_comparison": {
+      "audio_transcript": "THAT'S WHAT YOU DO WHEN YOU GET RID OF LOOPHOLES AND DEDUCTIONS IN THE CODE IS YOU DROP THE RATE FOR EVERY",
+      "video_transcript": "THAT'S WHAT YOU DO WHEN YOU GET RID OF LOOPHOLES AND DEDUCTIONS IN THE CODE YOU DROP THE RATE FOREVER",
+      "wer": 0.1364,
+      "word_match_rate": 86.36,
+      "character_similarity": 97.58,
+      "semantic_similarity": 96.96,
+      "percentage_metric_range": [0.0, 100.0]
+    }
+  },
+  "errors": {},
+  "status": "complete"
+}
